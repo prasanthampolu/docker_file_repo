@@ -26,10 +26,6 @@ ENV JAVA_HOME=/usr/java/jdk1.8.0_60/jre
 # install tcserver
 RUN yum install -y pivotal-tc-server-standard
 
-# add ojdbc6 and ojdbc7 to tomcat/lib directories
-#ADD lib/ojdbc*.jar /tmp/
-RUN find /opt/pivotal/pivotal-tc-server-standard/tomcat-*.RELEASE -type d -name 'lib' -exec cp /tmp/ojdbc7*.jar {} \;
-
 # install tcserver instance prasanth_server
 RUN mkdir -p /web/tcserver
 RUN /opt/pivotal/pivotal-tc-server-standard/tcruntime-instance.sh create -i /web/tcserver prasanth_server
@@ -45,7 +41,7 @@ RUN /web/tcserver/prasanth_server/bin/tcruntime-ctl.sh start /web/tcserver/prasa
 # keep the container alive (PID=1)
 CMD tail -f /web/tcserver/prasanth_server/logs/catalina.out
 
-EXPOSE 6969 
+EXPOSE 9090 
 
 
 
